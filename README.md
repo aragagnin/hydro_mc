@@ -10,11 +10,9 @@ You can use it as an executable via `python hydro_mc.py --help` or as a library 
 Table of Content:
 
 - [Install, Usage, references and License](#install-usage-references-and-license)
-- [References](#references)
-- [Obtain Halo Concentrations](#obtain-halo-concentrations)
+- [Examples](#examples)
     - [Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation](#obtain-halo-concentration-c_delta-from-a-halo-mass-via-a-mass-concentration-relation)
     - [Obtain halo concentration $c_delta2$ from a halo concentration $c_delta1$](#obtain-halo-concentration-c_delta2-from-a--halo-concentration-c_delta1)
-- [Obtain Halo Masses](#obtain-halo-masses)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-concentration-relation)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-mass relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-mass-relation)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-and-its-concentration-c_delta1)
@@ -22,18 +20,35 @@ Table of Content:
 - [Debug](#debug)
 
 
-## Install, Usage, References and License
+## Install, API Manual, Scientific References and License
 
-You can install *hydro-mc* just by downloading the file `hydro-mc.py`.
+You can install *hydro_mc* just by downloading the file `hydro_mc.py`.
 
-You can use `hydro-mc.py` in two ways: (i) as a stand alone tool, see `python hydro-mc.py --help` for a brief guide on the possible parameters, or (ii) you can include the package `hydro_mc` into your python project.
+You can use `hydro_mc.py` in two ways: (i) as a stand alone tool, see `python hydro_mc.py --help` for a brief guide on the possible parameters, or (ii) you can include the package `hydro_mc` into your python project.
 
 The package provides the following functions:
 
 
+    def do_get_concentration_from_mc_relation(delta, M, a, omega_b, omega_m, sigma8, h0)   #obtain halo concentration from the Ragagnin et al. 2020 MC relation
+    def do_get_mass_from_mm_relation(delta1, delta2, M, a, omega_b, omega_m, sigma8, h0)   #obtain hallo mass from the Ragagnin et al. 2020 MC relation
+    def do_get_mass_from_mc_relation(delta1, delta2, M, a, omega_b, omega_m, sigma8, h0)   #obtain hallo mass from the Ragagnin et al. 2020 MM relation
 
 
-## Obtain Halo Concentrations
+The following functions convert massses and concentrations without any fit parameter.
+
+    def do_convert_concentration(delta1, delta2, c, omega_m) #when converting c_delta2 to c_delta1, you need omega_m if one delta is 'vir'
+    def do_get_mass_from_m_and_c(delta1, delta2, M, c) 
+    
+delta parameters can be something as `delta` = `200c`, `2500c`, `500c`, `200m`, `vir`.
+
+If you use this package, please cite Ragagnin et al. (2020).
+
+This package is released under New BSD License, see `LICENSE.txt`.
+
+## Examples
+
+Here below a list of examples to use this package.
+
 ### Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation
 
 To compute the concentration via a mass-concentration relation, execute the script with the `--concentration-from-mc-relation` flag or call the function `do_get_concentration_from_mc_relation(delta,  M, a, omega_m, omega_b, sigma8, h0)`.

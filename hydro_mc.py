@@ -1,3 +1,12 @@
+"""
+hydro_mc is a python library and executable to perform masses conversions and Concentration fits of haloes in [Magenticum](http://www.magneticum.org) hydrodynamic simulations.
+
+These conversions are based on fits presented in the paper Ragagnin et al. (2020, in prep).
+
+To use this software, just download the content of this repository.
+You can use it as an executable via `python hydro_mc.py --help` or as a library inside your python project by including `import hydro_mc`.
+
+"""
 __author__="Antonio Ragagnin (c) 2019"
 __version__="0.1"
 
@@ -49,39 +58,6 @@ def print_abc_equation(is_lite=False):
 
 
 
-#@np.vectorize
-def arguments_vectorise(args):
-    N = 0
-    eles=0
-    for k in __fit_pivot_names:
-        if k not in args:
-            continue
-        if args[k]!=None:
-            l=1
-            eles+=1
-            args[k]=np.array(args[k])
-            if(args[k].shape!=()):
-                l=len(args[k])
-            else:
-
-
-                args[k]=np.array([args[k]])
-
-            N=max(N,l)
-    if(eles >0 and N==0):
-        raise Exception("No values to vectorise")
-    for k in __fit_pivot_names:
-        if k not in args:
-            continue
-        if args[k]!=None:
-            n = 1
-            if(args[k].shape!=()):
-                n=len(args[k])
-            if(n!=1) and (n!=N):
-                raise Exception("All values must have the same size or have size 1 or be  scalars. Parameter '%s' has size %d instead of %d"%(k,n,N))
-            if(n==1):
-                args[k]=np.full(N,args[k])
-
 def set_fit_parameters(table, **kw):
     fit_parameter_values  = []
     for parameter_name in __fit_parameter_names:
@@ -95,14 +71,12 @@ def set_fit_parameters(table, **kw):
         if 'pivot_'+parameter_name in kw and kw['pivot_'+parameter_name] is not None:
             table['pivots'][parameter_name]=kw['pivot_'+parameter_name]
 
-def set_mc_fit_parameters(delta,**kw):
-    set_fit_parameters(__mc_fit_parameters[delta], **kw)
 
-def set_mm_fit_parameters(delta_from,delta_to,**kw):
-    set_fit_parameters(__mm_fit_parameters[delta_from][delta_to], **kw)
+
+            
+
 
 def do_get_from_ragagnin2019_fit(table, pivots, use_lite_mc_fit=False, **kw):
-    arguments_vectorise(kw)
     if not  use_lite_mc_fit:
         norm, slopem, slopea,   pim , pib, pis, pih,    sim, sib, sis, sih,       aim, aib, ais, aih, sigma = table
     else:
@@ -110,7 +84,7 @@ def do_get_from_ragagnin2019_fit(table, pivots, use_lite_mc_fit=False, **kw):
     M, a, omega_m, omega_b, sigma8, h0 = [kw[pivot] / pivots[pivot] for pivot in __fit_pivot_names]
 
 
-    N=len(M)
+
 
     norm_2 = norm + pim*np.log(omega_m) +pib*np.log(omega_b)  +  pis*np.log(sigma8)  + pih*np.log(h0)
     if not  use_lite_mc_fit:
@@ -121,16 +95,17 @@ def do_get_from_ragagnin2019_fit(table, pivots, use_lite_mc_fit=False, **kw):
 
     return np.exp(norm_2 + np.log(M)*slopem_2 +  np.log(a)*slopea_2)
 
-def do_get_concentration_from_mc_relation(delta, use_lite_mc_fit=False, use_lite_mc_dm_fit=False, show_fit_parameters=False, **kw):
-    print( show_fit_parameters)
+def do_get_concentration_from_mc_relation(delta, M, a, omega_m, omega_b, sigma8, h0, use_lite_mc_fit=False, use_lite_mc_dm_fit=False, show_fit_parameters=False, table=None, **kw):
+
     if use_lite_mc_dm_fit and not  use_lite_mc_fit:
         raise Exception('If you activate use_lite_mc_dm_fit= you must also activate use_lite_mc_fit=True')
-    if use_lite_mc_fit and use_lite_mc_dm_fit:
-        table = __mc_dm_lite_fit_parameters[delta]
-    elif use_lite_mc_fit:
-        table =  __mc_lite_fit_parameters[delta]
-    else:
-        table =  __mc_fit_parameters[delta]
+    if table is None:
+        if use_lite_mc_fit and use_lite_mc_dm_fit:
+            table = __mc_dm_lite_fit_parameters[delta]
+        elif use_lite_mc_fit:
+            table =  __mc_lite_fit_parameters[delta]
+        else:
+            table =  __mc_fit_parameters[delta]
     if show_fit_parameters:
         print(' MC relation fit: ')
         print('     ln(c_delta) = A + B ln(M_delta/Mp) + C ln(a/ap) ')
@@ -139,14 +114,21 @@ def do_get_concentration_from_mc_relation(delta, use_lite_mc_fit=False, use_lite
         use_lite_mc_fit and not use_lite_mc_dm_fit and     print('\n Total matter oncentration: ') and    print_abc_equation()
         print('    Delta = %s'% delta)
         print_fit_params_and_pivots(table,is_lite= use_lite_mc_fit)
-    return do_get_from_ragagnin2019_fit( table['params'], table['pivots'],use_lite_mc_fit=use_lite_mc_fit, **kw)
+
+    return do_get_from_ragagnin2019_fit( table['params'], table['pivots'],use_lite_mc_fit=use_lite_mc_fit,
+                                         M=M,a=a,omega_m=omega_m, omega_b=omega_b, sigma8=sigma8, h0=h0,
+                                         **kw)
 
 
 
-def do_get_mass_from_mm_relation(delta_from, delta_to,  show_fit_parameters=False,  **kw):
+def do_get_mass_from_mm_relation(delta_from, delta_to, M, a, omega_m, omega_b, sigma8, h0,  show_fit_parameters=False,  table=None, **kw):
     if show_fit_parameters:
                     print_fit_params_and_pivots(__mm_fit_parameters[delta_from][delta_to])
-    return do_get_from_ragagnin2019_fit( __mm_fit_parameters[delta_from][delta_to]['params'],  __mm_fit_parameters[delta_from][delta_to]['pivots'],**kw)
+    if table is None:
+        table = __mm_fit_parameters[delta_from][delta_to]
+    return do_get_from_ragagnin2019_fit( table['params'], table['pivots'],
+                                         M=M,a=a,omega_m=omega_m, omega_b=omega_b, sigma8=sigma8, h0=h0,
+                                         **kw)
 
 
 def Omega(a, Omega_M, Omegar, Omegak, Omegal):
@@ -175,7 +157,7 @@ def banach_caccioppoli(f,x0,accuracy=0.001):
         x1=x2
     return x2
 
-def do_get_critical_overdensity(delta, **args):
+def do_get_critical_overdensity(delta,  **args):
     arguments_vectorise(args)
     if delta=='vir':
         if('a' not in args or args['a'] is None or 'omega_m' not in args or args['omega_m'] is None):
@@ -187,31 +169,50 @@ def do_get_critical_overdensity(delta, **args):
         raise Exception("Critical overdensity cannot be obtained from %s",delta)
 
 
-def cdelta1(delta2,delta1,cdelta1):
+def cdelta1(delta2,delta1,cdelta1, f_NFW=f_NFW):
      return lambda cdelta2: cdelta1 * (  (delta1/delta2)*(f_NFW(cdelta2)/f_NFW(cdelta1))  )**(1./3.)
 
 
-def c2_bc(delta2, delta1, c1):
-    c2 = banach_caccioppoli( cdelta1(delta2, delta1, c1), c1)
+def c2_bc(delta2, delta1, c1, f_NFW=f_NFW):
+    c2 = banach_caccioppoli( cdelta1(delta2, delta1, c1, f_NFW = f_NFW), c1)
     return c2
 
 
-def do_convert_concentration(delta_from, delta_to, concentration,  **kw):
+def  HK_func(x):
+    log = np.log
+    return(x*x*x*(log(1+1.0/x)-1.0/(1+x)));
+
+def HK_1(delta, delta_vir, cvir):
+    log = np.log
+    sqrt=np.sqrt
+    a1 = 0.5116
+    a2 = -0.4283
+    a3 = -3.13E-3
+    a4 = -3.52E-5
+    f=delta/delta_vir*HK_func(1.0/cvir);
+    p=a2+a3*log(f)+a4*log(f)*log(f);
+    x1=1.0/sqrt(a1*(f**(2.*p))+0.5625)+2*f;
+    return 1./x1
+    
+
+def do_convert_concentration(delta_from, delta_to, concentration, f_NFW=f_NFW,  c_hu_kratsov_2002=False, **kw):
     arguments_vectorise(kw)
     overdensity_from = do_get_critical_overdensity(delta_from, **kw)
     overdensity_to = do_get_critical_overdensity(delta_to, **kw)
-    return c2_bc(overdensity_to, overdensity_from, concentration)
+    if not  c_hu_kratsov_2002:
+        return c2_bc(overdensity_to, overdensity_from, concentration, f_NFW=f_NFW)
+    else:
+        return HK_1(overdensity_to, overdensity_from, concentration)
 
-
-def do_get_mass_from_m_and_c(delta_from, delta_to,   **kw):
-    c = kw['c']
+def do_get_mass_from_m_and_c(delta_from, delta_to, concentration,  **kw):
+    c = concentration
     overdensity_from = do_get_critical_overdensity(delta_from, **kw)
     overdensity_to = do_get_critical_overdensity(delta_to, **kw)
     new_c =  c2_bc(overdensity_to, overdensity_from, c)
     return    kw['M'] * (overdensity_to/overdensity_from)*(new_c/c)**3.
 
 
-def do_get_mass_from_mc_relation(delta_from, delta_to,   **kw):
+def do_get_mass_from_mc_relation(delta_from, delta_to, omega_m, omega_b, sigma8, h0,   **kw):
     overdensity_from = do_get_critical_overdensity(delta_from, **kw)
     overdensity_to = do_get_critical_overdensity(delta_to, **kw)
     c =  do_get_concentration_from_mc_relation(delta_from, **kw)
@@ -253,6 +254,8 @@ def main():
     parser.add_argument('--mass-from-mm-relation', action='store_true', default=False,help='Computes mass in --delta2 given a mass in --delta1 using Ragagnin et al. 2020 MM relation.' )
     parser.add_argument('--mass-from-mass-and-c', action='store_true', default=False,help=' Computes mass in --delta2 given a mass and a concentration (use --c) in --delta1')
 
+    parser.add_argument('--concentration-hu-kratsov-2002', action='store_true', default=False,help=' Computes concetatrion using Hu & Kratsov (2002) fit in Appendix B.')
+        
     parser.add_argument('--debug', action='store_true', default=False,help='Show full stacktrace in case of error')
 
     args = parser.parse_args()
@@ -289,8 +292,13 @@ def main():
     args.mass_from_mass_and_c and args.c is None and panic('With --mass_from_mass_and_c you must set also the concentration in delta1 via --c')
 
     try:
-        args.personalise_fit_parameters and (args.concentration_from_mc_relation or args.mass_from_mc_relation) and set_mc_fit_parameters(args.delta1,**args.__dict__)
-        args.personalise_fit_parameters and args.mass_from_mm_relation and  set_mm_fit_parameters(args.delta1,args.delta2, **args.__dict__)
+        
+        table = {}
+        args.personalise_fit_parameters and (args.concentration_from_mc_relation or args.mass_from_mc_relation) and set_fit_parameters(table, **kw)
+        args.personalise_fit_parameters and args.mass_from_mm_relation and   set_fit_parameters(table, **kw)
+        if table=={}:
+            table=None
+        args.table = table
         args.concentration_from_mc_relation and  print('c_%s = %.3f'%(args.delta1, do_get_concentration_from_mc_relation(args.delta1, **args.__dict__)))
         args.concentration_from_c and  print('c_%s = %.3f'%(args.delta2, do_convert_concentration(args.delta1, args.delta2, args.c, **args.__dict__)))
         args.mass_from_mm_relation and  print('M_%s = %.3e'%(args.delta2, do_get_mass_from_mm_relation(args.delta1, args.delta2,  **args.__dict__)))
@@ -299,6 +307,6 @@ def main():
     except  Exception as e:
         if args.debug:
             raise e
-        panic(str(e))
+        panic('Error "%s": %s'%(type(e).__name__,str(e)))
 if __name__ == "__main__":
     main()
