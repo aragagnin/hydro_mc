@@ -12,8 +12,7 @@ Table of Content:
 - [Install](#install)
 - [References](#references)
 - [Obtain Halo Concentrations](#obtain-halo-concentrations)
-    - [Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation]
-(#obtain-halo-concentration-c_delta-from-a-halo-mass-via-a-mass-concentration-relation)
+    - [Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation](#obtain-halo-concentration-c_delta-from-a-halo-mass-via-a-mass-concentration-relation)
     - [Obtain halo concentration $c_delta2$ from a halo concentration $c_delta1$](#obtain-halo-concentration-c_delta2-from-a--halo-concentration-c_delta1)
 - [Obtain Halo Masses](#obtain-halo-masses)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-concentration-relation)
