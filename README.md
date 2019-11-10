@@ -17,7 +17,7 @@ Table of Content:
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-mass relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-mass-relation)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-and-its-concentration-c_delta1)
 - [Display and change fit parameters](#display-and-change-fit-parameters)
-- [Debug](#debug)
+- [License](#license)
 
 
 ## Install, API Manual, Scientific References and License
@@ -43,7 +43,7 @@ delta parameters can be something as `delta` = `200c`, `2500c`, `500c`, `200m`, 
 
 If you use this package, please cite Ragagnin et al. (2020).
 
-This package is released under New BSD License, see `LICENSE.txt`.
+This package is released under New BSD License, see Section [License](#license).
 
 ## Examples
 
@@ -192,7 +192,31 @@ or, from library
 Add the `--debug` flag to the command line in order to obtain the full stack trace of errors.
 
 
+# License
 
+Copyright (c) 2019 Antonio Ragagnin <antonio.ragagnin@inaf.it>  
 
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
 
+1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may
+be used to endorse or promote products derived from this software without specific
+prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
