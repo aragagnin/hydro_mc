@@ -7,7 +7,7 @@ These conversions are based on fits presented in the paper Ragagnin et al. (2020
 To use this software, just download the content of this repository. 
 You can use it as an executable via `python hydro_mc.py --help` or as a library inside your python project by including `import hydro_mc`.
 
-## Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation
+### Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation
 
 To compute the concentration via a mass-concentration relation, execute the script with the `--concentration-from-mc-relation` flag or call the function `do_get_concentration_from_mc_relation(delta,  M, a, omega_m, omega_b, sigma8, h0)`.
 This conversion, by default is obtained using the fit results in Table 5 of Ragagnin et al (2020, in prep).
@@ -25,7 +25,7 @@ Or, within a python script
 You can also pass arrays of M,a,omega_m,omega_b sigma8, and h0. In that case the function will return an array of concentrations.
 
 
-## Obtain halo concentration $c_delta2$ from a  halo concentration $c_delta1$
+### Obtain halo concentration $c_delta2$ from a  halo concentration $c_delta1$
 
 In case you want to convert the concentration from two overdensities use `--concentration-from-c`, set the starting overdensity with `--delta1` and the destination overdensity with `--delta2`, and the concentration in $delta1$ with `--c`  or call the function `do_get_mass_from_m_and_c(delta1, delta2, c)`.
 
@@ -57,7 +57,7 @@ When you can plug a different funtion, from the library in the following way
     c_200_from_500_nfw = hydro_mc.do_get_mass_from_m_and_c('500c', '200c', 3., integral_profile = f_nfw)
 
 
-## Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation
+### Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation
 
 To convert masses from two overdensities, by passing thgough a MC relation, use, from command line - the flag `--mass-from-mc-relation`, and from a script use the function `do_get_mass_from_mm_relation`
 
@@ -76,7 +76,7 @@ You can also specify the parameters with the keywors `M,a,omega_m,omega_b,sigma8
     import hydro_mc
     M_vir = hydro_mc.do_get_mass_from_mc_relation('vir','200c', M=1e14, a=1.,omega_m=0.2, omega-b=0.04, sigma8=0.7, h0=0.7)
 
-## Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-mass relation
+### Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-mass relation
 
 To convert masses from two overdensities, according to Table 7 in Ragagnin et al. (2020, in prep), use - from command line - the flag `--mass-from-mc-relation`, and from a script, use the function
 
@@ -95,7 +95,7 @@ You can also specify the parameters with the keywors `M,a,omega_m,omega_b,sigma8
     import hydro_mc
     M_vir = hydro_mc.do_get_mass_from_mm_relation('vir','200c', M=1e14, a=1.,omega_m=0.2, omega-b=0.04, sigma8=0.7, h0=0.7)
     
-## Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$
+### Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$
 
 If you know the mass and concentration of a halo, you do not need any fit relation.
 From command line
@@ -111,7 +111,7 @@ And, from library
 
 In case you need to convert from or to `delta=vir`, you need to specify, respectively `--omega-m value` or `omega_m=value`. 
   
-## Display and change fit parameters
+### Display and change fit parameters
 
 
 You can switch to the 'lite' version of the mass-concentration fit (where there is no dpeendency of cosmology in the mass logarithmic slope) with the flag `--use-lite-mc-fit` or, adding the parameter `use_lite_mc_fit=True` to function calls.
@@ -145,7 +145,10 @@ or, from library
 
 
 
-## Final remarks
+### Debug
+
+Add the `--debug` flag to the command line in order to obtain the full stack trace of errors.
+
 
 
 
