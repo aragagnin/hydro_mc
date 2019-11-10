@@ -7,6 +7,26 @@ These conversions are based on fits presented in the paper Ragagnin et al. (2020
 To use this software, just download the content of this repository. 
 You can use it as an executable via `python hydro_mc.py --help` or as a library inside your python project by including `import hydro_mc`.
 
+Table of Content:
+
+- [Install](#install)
+- [References](#references)
+- [Obtain Halo Concentrations](#obtain-halo-concentrations)
+    - [Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation]
+(#obtain-halo-concentration-c_delta-from-a-halo-mass-via-a-mass-concentration-relation)
+    - [Obtain halo concentration $c_delta2$ from a halo concentration $c_delta1$](#obtain-halo-concentration-c_delta2-from-a--halo-concentration-c_delta1)
+- [Obtain Halo Masses](#obtain-halo-masses)
+    - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-concentration-relation)
+    - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-mass relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-mass-relation)
+    - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-and-its-concentration-c_delta1)
+- [Display and change fit parameters](#display-and-change-fit-parameters)
+- [Debug](#debug)
+
+
+## Install
+## References
+
+## Obtain Halo Concentrations
 ### Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation
 
 To compute the concentration via a mass-concentration relation, execute the script with the `--concentration-from-mc-relation` flag or call the function `do_get_concentration_from_mc_relation(delta,  M, a, omega_m, omega_b, sigma8, h0)`.
@@ -56,6 +76,7 @@ When you can plug a different funtion, from the library in the following way
     c_200_from_500_non_nfw = hydro_mc.do_get_mass_from_m_and_c('500c', '200c', 3., integral_profile = f_non_nfw)
     c_200_from_500_nfw = hydro_mc.do_get_mass_from_m_and_c('500c', '200c', 3., integral_profile = f_nfw)
 
+## Obtain Halo Masses
 
 ### Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation
 
@@ -108,10 +129,9 @@ And, from library
     M_vir = hydro_mc.do_get_mass_from_m_and_c('vir','200c', 2.)
    
 
-
 In case you need to convert from or to `delta=vir`, you need to specify, respectively `--omega-m value` or `omega_m=value`. 
   
-### Display and change fit parameters
+## Display and change fit parameters
 
 
 You can switch to the 'lite' version of the mass-concentration fit (where there is no dpeendency of cosmology in the mass logarithmic slope) with the flag `--use-lite-mc-fit` or, adding the parameter `use_lite_mc_fit=True` to function calls.
@@ -145,7 +165,7 @@ or, from library
 
 
 
-### Debug
+## Debug
 
 Add the `--debug` flag to the command line in order to obtain the full stack trace of errors.
 
