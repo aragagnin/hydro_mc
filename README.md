@@ -9,7 +9,7 @@ You can use it as an executable via `python hydro_mc.py --help` or as a library 
 
 Table of Content:
 
-- [Install](#install)
+- [Install, Usage, references and License](#install-usage-references-and-license)
 - [References](#references)
 - [Obtain Halo Concentrations](#obtain-halo-concentrations)
     - [Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation](#obtain-halo-concentration-c_delta-from-a-halo-mass-via-a-mass-concentration-relation)
@@ -22,7 +22,14 @@ Table of Content:
 - [Debug](#debug)
 
 
-## Install
+## Install, Usage, References and License
+
+You can install *hydro-mc* just by downloading the file `hydro-mc.py`.
+
+You can use `hydro-mc.py` in two ways: (i) as a stand alone tool, see `python hydro-mc.py --help` for a brief guide on the possible parameters, or (ii) you can include the package `hydro-mg`
+
+
+
 ## References
 
 ## Obtain Halo Concentrations
