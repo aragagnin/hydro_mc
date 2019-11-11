@@ -18,6 +18,7 @@ Table of Content:
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-and-its-concentration-c_delta1)
     - [Display and edit fit parameters](#display-and-edit-fit-parameters)
     - [Convert concentration with Hu & Kravtsov (2002)](#convert-concentration-with-hu-kravtsov-2002)
+    - [Convert concentration without assuming NFW profile (as eq. 10 in Ragagnin et al. 2020 in prep)](#convert-concentration-with-hu-kravtsov-2002)
     - [Use MC plane with lighter dependency on cosmology (Ragagnin et al. 2020, in prep, table A1)](#convert-concentration-with-hu-kravtsov-2002)
     - [Use MC plane of Dark Matter profile (Ragagnin et al. 2020, in prep, table A2)](#convert-concentration-with-hu-kravtsov-2002)
 - [License](#license)
