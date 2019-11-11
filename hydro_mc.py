@@ -195,11 +195,13 @@ def HK_1(delta, delta_vir, cvir):
     return 1./x1
     
 
-def do_convert_concentration(delta_from, delta_to, concentration, f_profile=f_NFW,  c_hu_kratsov_2002=False, **kw):
+def do_convert_concentration(delta_from, delta_to, concentration, f_profile=None,  c_hu_kratsov_2002=False, **kw):
     arguments_vectorise(kw)
     overdensity_from = do_get_critical_overdensity(delta_from, **kw)
     overdensity_to = do_get_critical_overdensity(delta_to, **kw)
     if not  c_hu_kratsov_2002:
+        if f_profile is None:
+            f_profile = f_NFW
         return c2_bc(overdensity_to, overdensity_from, concentration, f_NFW=f_profile)
     else:
         return HK_1(overdensity_to, overdensity_from, concentration)
