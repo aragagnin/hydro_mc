@@ -53,7 +53,10 @@ def print_fit_params_and_pivots(table,is_lite=False):
 
 def print_abc_equation(is_lite=False):
     print('     A = A0 + alpha_m * ln (Omega_m/Omega_m_pivot) + alpha_b * ln(Omega_b/Omega_b_pivot) + alpha_s * ln(sigma_8/sigma_8_pivot) + alpha_h * ln(h0/h0_pivot) ')
-    print('     B = B0 + beta_m * ln (Omega_m/Omega_m_pivot) + beta_b * ln(Omega_b/Omega_b_pivot) + beta_s * ln(sigma_8/sigma_8_pivot) + beta_h * ln(h0/h0_pivot) ') if not is_lite else print ('     B = B0')
+    if not is_lite:
+        print('     B = B0 + beta_m * ln (Omega_m/Omega_m_pivot) + beta_b * ln(Omega_b/Omega_b_pivot) + beta_s * ln(sigma_8/sigma_8_pivot) + beta_h * ln(h0/h0_pivot) ')
+    else:
+        print ('     B = B0')
     print('     C = C0 + gamma_m * ln (Omega_m/Omega_m_pivot) + gamma_b * ln(Omega_b/Omega_b_pivot) + gamma_s * ln(sigma_8/sigma_8_pivot) + gamma_h * ln(h0/h0_pivot) ')
 
 
