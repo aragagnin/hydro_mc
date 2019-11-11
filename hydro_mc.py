@@ -227,8 +227,16 @@ def do_get_mass_from_mc_relation(delta_from, delta_to, omega_m, omega_b, sigma8,
     M = kw['M'] * (overdensity_to/overdensity_from)*(new_c/c)**3.
     return   M
 
-
-
+def split_kv(a,d, names,pre_key=''):
+    for arg in :
+        if '=' not in arg:
+            throw Exception('Values must be key/values separated by "=", found %s'%arg)
+        k,v = arg.split('=')
+        if k not in names:
+            throw Exception('Parameter is not a valid key=value pair. Found "%s" but should be one of %s'%(k, ', '.join(names)))
+        if re.match("^\d+?\.\d+?$", v) is None:
+            throw Exception('Valu  must be floats, in "%s" found "%s"'%(arg, v))
+        d[prekey+k]=float(v)
 def main():
     parser = argparse.ArgumentParser(description='Magneticum Cosmological Masses and Concentration Converter')
     parser.add_argument('--delta1','--delta', type=str, help='Overdensity Delta for the MC relation', default=None)
@@ -267,38 +275,20 @@ def main():
 
     args = parser.parse_args()
     args.personalise_fit_parameters=False;
-    if args.set_pivots:
-        for arg in args.set_pivot:
-            if '=' not in arg:
-                panic('Use --set-pivot values must be key/values separated by "=", found %s'%arg)
-            k,v = arg.split('=')
-            if k not in __fit_pivot_names:
-                panic('Parameter in --set-pivot is not a valid pivot. Found "%s" but should be one of %s'%(k, ', '.join(__fit_pivot_names)))
-            if re.match("^\d+?\.\d+?$", v) is None:
-                panic('Values in --set-pivot must be floats, found "%s"'%(v))
-            args.__dict__['pivot_'+k]=float(v)
-        args.personalise_fit_parameters=True
-
-    if args.set_fit_parameters:
-        for arg in args.set_fit_parameters:
-            if '=' not in arg:
-                panic('Use --set-fit-parameters values must be key/values separated by "=", found %s'%arg)
-            k,v = arg.split('=')
-            if k not in __fit_parameter_names:
-                panic('Parameter in --set-fit-parameters is not a valid pivot. Found "%s" but should be one of %s'%(k, ', '.join(__fit_parameter_names)))
-            if re.match("^\d+?\.\d+?$", v) is None:
-                panic('Values in --set-fit-parameters must be floats, found "%s"'%(v))
-            args.__dict__[k]=float(v)
-
-        args.personalise_fit_parameters=True
+    try:
+        if args.set_pivots:
+            split_kv(args.set_pivots,args.__dict__,__fit_pivot_names, prekey='pivot_')
+            args.personalise_fit_parameters=True
+            if args.set_fit_parameters:
+                split_kv(set_fit_parameters,args.__dict__,__fit_parameter_names, prekey='pivot_')
 
 
-    not args.personalise_fit_parameters  and not args.show_fit_parameters  and not args.concentration_from_mc_relation  and not args.concentration_from_c  and not args.mass_from_mm_relation and not args.mass_from_mc_relation and not args.mass_from_mass_and_c and parser.print_help()
+        not args.personalise_fit_parameters  and not args.show_fit_parameters  and not args.concentration_from_mc_relation  and not args.concentration_from_c  and not args.mass_from_mm_relation and not args.mass_from_mc_relation and not args.mass_from_mass_and_c and parser.print_help()
     args.personalise_fit_parameters and not (args.concentration_from_mc_relation or args.mass_from_mc_relation or args.mass_from_mm_relation) and panic("Use --personalise-fit-parameters only in combination with --concentration-from-mc-relation or --mass-from-mc-relation or --mass-from-mm-relation")
     (args.concentration_from_mc_relation  or  args.mass_from_mc_relation  or args.mass_from_mm_relation  ) and (args.M is None or args.a is None or args.omega_m is None or args.omega_b is None or args.sigma8 is None or args.h0 is None) and  panic("If you use  --concentration-from-mc-relation or --mass-from-mc-relation or --mass-from-mm-relation then you must set --M --a --omega-m --omega-b --sigma8 and --h0")
     args.mass_from_mass_and_c and args.c is None and panic('With --mass_from_mass_and_c you must set also the concentration in delta1 via --c')
 
-    try:
+
         
         table = {}
         args.personalise_fit_parameters and (args.concentration_from_mc_relation or args.mass_from_mc_relation) and set_fit_parameters(table, **kw)
