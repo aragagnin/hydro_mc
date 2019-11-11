@@ -166,7 +166,6 @@ def banach_caccioppoli(f,x0,accuracy=0.001):
     return x2
 
 def do_get_critical_overdensity(delta,  **args):
-    arguments_vectorise(args)
     if delta=='vir':
         if('a' not in args or args['a'] is None or 'omega_m' not in args or args['omega_m'] is None):
             raise Exception("You need to provide parameters a and omega_m if you use a delta==vir")
@@ -204,7 +203,6 @@ def HK_1(delta, delta_vir, cvir):
     
 
 def do_convert_concentration(delta_from, delta_to, concentration, f_profile=None,  c_hu_kratsov_2002=False, **kw):
-    arguments_vectorise(kw)
     overdensity_from = do_get_critical_overdensity(delta_from, **kw)
     overdensity_to = do_get_critical_overdensity(delta_to, **kw)
     if not  c_hu_kratsov_2002:
@@ -222,12 +220,12 @@ def do_get_mass_from_m_and_c(delta_from, delta_to, concentration,  **kw):
     return    kw['M'] * (overdensity_to/overdensity_from)*(new_c/c)**3.
 
 
-def do_get_mass_from_mc_relation(delta_from, delta_to, omega_m, omega_b, sigma8, h0,   **kw):
+def do_get_mass_from_mc_relation(delta_from, delta_to, M, a, omega_m, omega_b, sigma8, h0,   **kw):
     overdensity_from = do_get_critical_overdensity(delta_from, **kw)
     overdensity_to = do_get_critical_overdensity(delta_to, **kw)
-    c =  do_get_concentration_from_mc_relation(delta_from, **kw)
+    c =  do_get_concentration_from_mc_relation(delta_from, M, a, omega_m, omega_b, sigma8, h0, **kw)
     new_c =  c2_bc(overdensity_to, overdensity_from, c)
-    M = kw['M'] * (overdensity_to/overdensity_from)*(new_c/c)**3.
+    M = M* (overdensity_to/overdensity_from)*(new_c/c)**3.
     return   M
 
 def split_kv(a,d, names,prekey=''):
@@ -246,12 +244,12 @@ def main():
     parser.add_argument('--delta1','--delta', type=str, help='Overdensity Delta for the MC relation', default=None)
     parser.add_argument('--delta2', type=str,help='Destination overdensity in case of mass-mass or concentration-concentration conversion', default=None)
 
-    parser.add_argument('--M', type=float,help='Halo mass to be converted')
-    parser.add_argument('--a', type=float,help='scale factor of halo to be converted')
-    parser.add_argument('--omega-m', type=float,help='Omega_m parameter of the conversion')
-    parser.add_argument('--omega-b', type=float,help='Omega_b parameter of the conversion')
-    parser.add_argument('--sigma8', type=float,help='sigma8 parameter of the conversion')
-    parser.add_argument('--h0', type=float,help='h0 parameter of the conversion')
+    parser.add_argument('--M', type=float,help='Halo mass to be converted', default=None)
+    parser.add_argument('--a', type=float,help='scale factor of halo to be converted',default=None)
+    parser.add_argument('--omega-m', type=float,help='Omega_m parameter of the conversion',default=None)
+    parser.add_argument('--omega-b', type=float,help='Omega_b parameter of the conversion',default=None)
+    parser.add_argument('--sigma8', type=float,help='sigma8 parameter of the conversion',default=None)
+    parser.add_argument('--h0', type=float,help='h0 parameter of the conversion',default=None)
 
     parser.add_argument('--c', type=float,help='Concentration of the halo. Use in combination with --concentration-from-c and --mass-from-mass-and-c')
 
@@ -295,7 +293,7 @@ def main():
 
         
         table = {"pivots":{}, "params":[]}
-        args.personalise_fit_parameters  and set_fit_parameters(table, **args.__dict__)
+        args.personalise_fit_parameters  and set_fit_parameters(table, **args.__dict__)  and set_pivots(table, **args.__dict__)
         if table=={"pivots":{}, "params":[]}:
             table=None
         args.table = table
@@ -306,7 +304,7 @@ def main():
         args.mass_from_mass_and_c and  printf('M_%s = %.3e'%(args.delta2, do_get_mass_from_m_and_c(args.delta1, args.delta2,  **args.__dict__)))
     except  Exception as e:
         if args.debug:
-            raise e
+            raise 
         panic('Error "%s": %s'%(type(e).__name__,str(e)))
 if __name__ == "__main__":
     main()
