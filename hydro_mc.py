@@ -39,7 +39,7 @@ def panic(x):
     sys.stderr.write(x+'\n')
     sys.exit(1)
 
-def printf(x)
+def printf(x):
     sys.stdout.write(x)
 
 def print_fit_params_and_pivots(table,is_lite=False):
