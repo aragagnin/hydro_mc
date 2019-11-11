@@ -9,25 +9,29 @@ You can use it as an executable via `python hydro_mc.py --help` or as a library 
 
 Table of Content:
 
-- [Install, Usage, references and License](#install-usage-references-and-license)
+- [Install, User Manual, References and License](#install-user-manual-references-and-license)
 - [Examples](#examples)
     - [Obtain halo concentration $c_delta$ from a halo mass via a mass-concentration relation](#obtain-halo-concentration-c_delta-from-a-halo-mass-via-a-mass-concentration-relation)
     - [Obtain halo concentration $c_delta2$ from a halo concentration $c_delta1$](#obtain-halo-concentration-c_delta2-from-a--halo-concentration-c_delta1)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-concentration-relation)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-mass relation](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-via-a-mass-mass-relation)
     - [Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$](#obtain-halo-mass-m_delta2-from-a-halo-mass-m_delta1-and-its-concentration-c_delta1)
-- [Display and change fit parameters](#display-and-change-fit-parameters)
+    - [Display and edit fit parameters](#display-and-edit-fit-parameters)
+    - [Convert concentration with Hu & Kravtsov (2002)](#convert-concentration-with-hu-kravtsov-2002)
+    - [Use MC plane with lighter dependency on cosmology (Ragagnin et al. 2020, in prep, table A1)](#convert-concentration-with-hu-kravtsov-2002)
+    - [Use MC plane of Dark Matter profile (Ragagnin et al. 2020, in prep, table A2)](#convert-concentration-with-hu-kravtsov-2002)
 - [License](#license)
 
 
-## Install, API Manual, Scientific References and License
+## Install, User Manual, References and License
 
-You can install *hydro_mc* just by downloading the file `hydro_mc.py`.
+You can install *hydro_mc* just by downloading the file `hydro_mc.py` of this repository.
 
-You can use `hydro_mc.py` in two ways: (i) as a stand alone tool, see `python hydro_mc.py --help` for a brief guide on the possible parameters, or (ii) you can include the package `hydro_mc` into your python project.
+You can use `hydro_mc.py` in two ways: 
+ - as a stand alone tool, see `python hydro_mc.py --help` for a brief guide on the possible parameters, 
+ - or you can include the package `hydro_mc` into your python project.
 
 The package provides the following functions:
-
 
     def do_get_concentration_from_mc_relation(delta, M, a, omega_b, omega_m, sigma8, h0)   #obtain halo concentration from the Ragagnin et al. 2020 MC relation
     def do_get_mass_from_mm_relation(delta1, delta2, M, a, omega_b, omega_m, sigma8, h0)   #obtain hallo mass from the Ragagnin et al. 2020 MC relation
