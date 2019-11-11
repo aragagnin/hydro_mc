@@ -39,6 +39,8 @@ def panic(x):
     sys.stderr.write(x+'\n')
     sys.exit(1)
 
+def printf(x)
+    sys.stdout.write(x)
 
 def print_fit_params_and_pivots(table,is_lite=False):
     iparam=-1
@@ -112,9 +114,9 @@ def do_get_concentration_from_mc_relation(delta, M, a, omega_m, omega_b, sigma8,
     if show_fit_parameters:
         print(' MC relation fit: ')
         print('     ln(c_delta) = A + B ln(M_delta/Mp) + C ln(a/ap) ')
-        use_lite_mc_fit and use_lite_mc_dm_fit and     print('\n Dark matter concentration with lite parametrisation: ') and    print_abc_equation(is_lite=True)
-        use_lite_mc_fit and not use_lite_mc_dm_fit and     print('\n Total matter oncentration with lite parameters: ') and    print_abc_equation(is_lite=True)
-        use_lite_mc_fit and not use_lite_mc_dm_fit and     print('\n Total matter oncentration: ') and    print_abc_equation()
+        use_lite_mc_fit and use_lite_mc_dm_fit and     printf('\n Dark matter concentration with lite parametrisation: ') and    print_abc_equation(is_lite=True)
+        use_lite_mc_fit and not use_lite_mc_dm_fit and     printf('\n Total matter oncentration with lite parameters: ') and    print_abc_equation(is_lite=True)
+        use_lite_mc_fit and not use_lite_mc_dm_fit and     printf('\n Total matter oncentration: ') and    print_abc_equation()
         print('    Delta = %s'% delta)
         print_fit_params_and_pivots(table,is_lite= use_lite_mc_fit)
 
