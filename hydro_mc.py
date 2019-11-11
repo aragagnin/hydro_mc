@@ -40,7 +40,7 @@ def panic(x):
     sys.exit(1)
 
 def printf(x):
-    sys.stdout.write(x)
+    sys.stdout.write(x+'\n')
 
 def print_fit_params_and_pivots(table,is_lite=False):
     iparam=-1
@@ -306,11 +306,11 @@ def main():
         if table=={}:
             table=None
         args.table = table
-        args.concentration_from_mc_relation and  print('c_%s = %.3f'%(args.delta1, do_get_concentration_from_mc_relation(args.delta1, **args.__dict__)))
-        args.concentration_from_c and  print('c_%s = %.3f'%(args.delta2, do_convert_concentration(args.delta1, args.delta2, args.c, **args.__dict__)))
-        args.mass_from_mm_relation and  print('M_%s = %.3e'%(args.delta2, do_get_mass_from_mm_relation(args.delta1, args.delta2,  **args.__dict__)))
-        args.mass_from_mc_relation and  print('M_%s = %.3e'%(args.delta2, do_get_mass_from_mc_relation(args.delta1, args.delta2,  **args.__dict__)))
-        args.mass_from_mass_and_c and  print('M_%s = %.3e'%(args.delta2, do_get_mass_from_m_and_c(args.delta1, args.delta2,  **args.__dict__)))
+        args.concentration_from_mc_relation and  printf('c_%s = %.3f'%(args.delta1, do_get_concentration_from_mc_relation(args.delta1, **args.__dict__)))
+        args.concentration_from_c and  printf('c_%s = %.3f'%(args.delta2, do_convert_concentration(args.delta1, args.delta2, args.c, **args.__dict__)))
+        args.mass_from_mm_relation and  printf('M_%s = %.3e'%(args.delta2, do_get_mass_from_mm_relation(args.delta1, args.delta2,  **args.__dict__)))
+        args.mass_from_mc_relation and  printf('M_%s = %.3e'%(args.delta2, do_get_mass_from_mc_relation(args.delta1, args.delta2,  **args.__dict__)))
+        args.mass_from_mass_and_c and  printf('M_%s = %.3e'%(args.delta2, do_get_mass_from_m_and_c(args.delta1, args.delta2,  **args.__dict__)))
     except  Exception as e:
         if args.debug:
             raise e
