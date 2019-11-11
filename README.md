@@ -170,17 +170,19 @@ From command line use teh option `--set-fit-parameters` and `--set-pivots`. Para
 
 
 
-The following example convert the mass of `1e14Msun/h`  fit parameters from CLASH data [(see Merten et al. 2015)](https://adsabs.harvard.edu/abs/2015ApJ...806....4M/abstract) (`exp(A0) = 3.66, B0 = -0.32, C0 = -0.14` and masses in units of `Msun/h`):
+The following example convert the mass of `1e14Msun/h` at `z=0` (`a=1`) fit parameters from CLASH data [(see Merten et al. 2015)](https://adsabs.harvard.edu/abs/2015ApJ...806....4M/abstract) (`exp(A0) = 3.66, B0 = -0.32, C0 = -0.14` and masses in units of `Msun/h`):
 
-    python hydro_mc.py --delta1 500c --mass-from-mm-relation --delta2 vir  --M 1e14  --a 1. --omega-m 0.2 --omega-b 0.04 --sigma8 0.7 --h0 0.7 --set-fit-parameters A0=0.563 B0=-0.32 C0=-0.14 --set-pivots  M=8e14.
+    python hydro_mc.py --delta1 200c --mass-from-mc-relation --delta2 500c  --M 1e14  --a 1.0 --set-fit-parameters A0=1.297 B0=-0.32 C0=-0.14 --set-pivots  M=8e14 a=0.73  
+
+
 
 From a script, try the following
 
     import hydro_mc
     table = {}
-    hydro_mc.set_fit_parameters(table,  A0=0.563, B0=-0.32 ,C0=-0.14)
-    hydro_mc.set_pivots(table, M=8e14)
-    M_500c = hydro_mc.do_get_mass_from_mc_relation('200c','500c', 1e14, 1., 0.2, 0.04, 0.7, 0.7, table=table show_fit_parameters=True)
+    hydro_mc.set_fit_parameters(table,  A0=1.297, B0=-0.32 ,C0=-0.14)
+    hydro_mc.set_pivots(table, M=8e14, a=0.73)
+    M_500c = hydro_mc.do_get_mass_from_mc_relation('200c','500c', 1e14, 1., omega_b=None, omega_m=None, sigma8=None, h0=None, table=table show_fit_parameters=True)
 
 
 
