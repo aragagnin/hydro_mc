@@ -32,11 +32,11 @@ The package provides the following functions:
 
 Function name |  Parameters | Comments
 --- | --- | ---
-`do_get_concentration_from_mc_relation` | delta,<br> M, [Msun]<br> a, <br> omega_b, <br> omega_m, <br>sigma8, <br>h0, <br>table=None,<br> use_lite_mc_fit=False,<br> use_lite_mc_dm_fit=False <br> | Obtain halo concentration on overdensity `delta`  from the Ragagnin et al. 2020 MC relation (see Table 4 in this paper) fit a halo with properties mass M, scale factor a, omega_b, omega_m, sigma8 and h0. If `table` is provided (see Sec. [Display and edit fit parameters](#display-and-change-fit-parameters)) then fit parameters are taken from it. Use ` use_lite_mc_fit=True` to utilise the fit parameters in  Ragagnin et al. 2020 (table A1) and `use_lite_mc_fit=True, use_lite_mc_dm_fit=True`  to utilise fit parameters in Ragagnin et al. 2020 (table A2)
-`do_get_mass_from_mm_relation` | delta1, <br> delta2,<br>  M, [Msun] <br> a, <br> omega_b, <br> omega_m, <br> sigma8, <br> h0, <br> table=None,  | Obtain halo mass on overdensity `delta2`  from the Ragagnin et al. 2020 MM relation (see Table 5 and Table 6 in this paper) for a halo with properties mass `M`, on overdensity `delta1`, scale factor `a`, omega_b, omega_m, sigma8 and h0. If `table` is provided (see Sec. [Display and edit fit parameters](#display-and-change-fit-parameters)) then fit parameters are taken from it. 
-`do_get_mass_from_mc_relation` | delta1, <br>  delta2, <br> M,<br>  a, <br> omega_b, <br>  omega_m, <br> sigma8, <br> h0, <br>  table=None | Obtain halo mass on overdensity `delta2`  from the Ragagnin et al. 2020 MM relation (see Table 4 and Equations 9-11) for a halo with properties mass `M`, on overdensity `delta1`, scale factor `a`, omega_b, omega_m, sigma8 and h0. If `table` is provided (see Sec. [Display and edit fit parameters](#display-and-change-fit-parameters)) then fit parameters are taken from it. 
-`do_convert_concentration` | delta1, <br> delta2, <br> c, <br>omega_m=None, f_profile=None,<br>  c_hu_kratsov_2002=False |  Converts concentrations by using the relation $ (c_delta2/c_delta1)^3 = delta1/delta * f(c_delta2)/f(c_delta1),$ where $f(c)=ln(1+c)+c/(1+c).$ Set  `f_profile` to a different function to change `f`. Set `c_hu_kratsov_2002=False` to use the fitting formula provided in [Hu & Kravtsov (2002)](https://adsabs.harvard.edu/abs/2003ApJ...584..702H/). 
-`do_get_mass_from_m_and_c` |  delta1, delta2, M, c, omega_m=None  |  Same as above but returns the mass in that overdensity with the formula $M_delta2/M_delta1 = (c_delta2/c_delta1)^3 * delta2/delta1$
+`concentration_from_mc_relation` | delta,<br> M, [Msun]<br> a, <br> omega_b, <br> omega_m, <br>sigma8, <br>h0, <br>table=None,<br> use_lite_mc_fit=False,<br> use_lite_mc_dm_fit=False <br> | Obtain halo concentration on overdensity `delta`  from the Ragagnin et al. 2020 MC relation (see Table 4 in this paper) fit a halo with properties mass M, scale factor a, omega_b, omega_m, sigma8 and h0. If `table` is provided (see Sec. [Display and edit fit parameters](#display-and-change-fit-parameters)) then fit parameters are taken from it. Use ` use_lite_mc_fit=True` to utilise the fit parameters in  Ragagnin et al. 2020 (table A1) and `use_lite_mc_fit=True, use_lite_mc_dm_fit=True`  to utilise fit parameters in Ragagnin et al. 2020 (table A2)
+`mass_from_mm_relation` | delta1, <br> delta2,<br>  M, [Msun] <br> a, <br> omega_b, <br> omega_m, <br> sigma8, <br> h0, <br> table=None,  | Obtain halo mass on overdensity `delta2`  from the Ragagnin et al. 2020 MM relation (see Table 5 and Table 6 in this paper) for a halo with properties mass `M`, on overdensity `delta1`, scale factor `a`, omega_b, omega_m, sigma8 and h0. If `table` is provided (see Sec. [Display and edit fit parameters](#display-and-change-fit-parameters)) then fit parameters are taken from it. 
+`mass_from_mc_relation` | delta1, <br>  delta2, <br> M,<br>  a, <br> omega_b, <br>  omega_m, <br> sigma8, <br> h0, <br>  table=None | Obtain halo mass on overdensity `delta2`  from the Ragagnin et al. 2020 MM relation (see Table 4 and Equations 9-11) for a halo with properties mass `M`, on overdensity `delta1`, scale factor `a`, omega_b, omega_m, sigma8 and h0. If `table` is provided (see Sec. [Display and edit fit parameters](#display-and-change-fit-parameters)) then fit parameters are taken from it. 
+`convert_concentration` | delta1, <br> delta2, <br> c, <br>omega_m=None, f_profile=None,<br>  c_hu_kratsov_2002=False |  Converts concentrations by using the relation $ (c_delta2/c_delta1)^3 = delta1/delta * f(c_delta2)/f(c_delta1),$ where $f(c)=ln(1+c)+c/(1+c).$ Set  `f_profile` to a different function to change `f`. Set `c_hu_kratsov_2002=False` to use the fitting formula provided in [Hu & Kravtsov (2002)](https://adsabs.harvard.edu/abs/2003ApJ...584..702H/). 
+`mass_from_m_and_c` |  delta1, delta2, M, c, omega_m=None  |  Same as above but returns the mass in that overdensity with the formula $M_delta2/M_delta1 = (c_delta2/c_delta1)^3 * delta2/delta1$
     
 The values of `delta` parameters can be something as `delta` = `200c`, `2500c`, `500c`, `200m`, `vir`.
 
@@ -59,7 +59,7 @@ python hydro_mc.py  --delta 200c --concentration-from-mc-relation --M 1e14 --a 0
 Or, within a python script:
 ```python
 import hydro_mc
-c_200 = hydro_mc.do_get_concentration_from_mc_relation('200c', M=1e14, a=0.1, omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7)
+c_200 = hydro_mc.concentration_from_mc_relation('200c', M=1e14, a=0.1, omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7)
 ```
 
 ### Obtain halo concentration $c_delta2$ from a  halo concentration $c_delta1$
@@ -73,7 +73,7 @@ python hydro_mc.py  --delta1 vir --delta2 200c --concentration-from-c --c 3. --o
 Or, inside a python script:
 ```python
 import hydro_mc
-c_200_from_vir = hydro_mc.do_get_mass_from_m_and_c('vir', '200c', 3., omega_m=0.24)
+c_200_from_vir = hydro_mc.mass_from_m_and_c('vir', '200c', 3., omega_m=0.24)
 ```
 
 Note that we had to provide `omega_m` because one of the overdensity is `vir`. You can ignore this parameter if you convert between tho other critical overdensities.
@@ -89,22 +89,22 @@ def f_non_nfw(c):
     return ln(1+c)
 def f_nfw(c):
     return ln(1+c) + c/(1+c)
-c_200_from_500_non_nfw = hydro_mc.do_get_mass_from_m_and_c('500c', '200c', 3., f_profile = f_non_nfw)
-c_200_from_500_nfw = hydro_mc.do_get_mass_from_m_and_c('500c', '200c', 3., f_profile = f_nfw)
+c_200_from_500_non_nfw = hydro_mc.mass_from_m_and_c('500c', '200c', 3., f_profile = f_non_nfw)
+c_200_from_500_nfw = hydro_mc.mass_from_m_and_c('500c', '200c', 3., f_profile = f_nfw)
 ```
 
 ### Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-concentration relation
 
-To convert masses from two overdensities, by passing thgough a MC relation, use, from command line - the flag `--mass-from-mc-relation`, and from a script use the function `do_get_mass_from_mm_relation`, From command line:
+To convert masses from two overdensities, by passing thgough a MC relation, use, from command line - the flag `--mass-from-mc-relation`, and from a script use the function `mass_from_mm_relation`, From command line:
  ```console
  python hydro_mc.py --delta1 500c --mass-from-mc-relation --delta2 vir  --M 1e14  --a 1. --omega-m 0.2 --omega-b 0.04 --sigma8 0.7 --h0 0.7
 ```
 while from a python script:
 ```python
 import hydro_mc
-M_500c = hydro_mc.do_get_mass_from_mc_relation('500c','vir', 1e14,1.,0.2,0.04,0.7,0.7)
+M_500c = hydro_mc.mass_from_mc_relation('500c','vir', 1e14,1.,0.2,0.04,0.7,0.7)
 #You can also specify the parameters with the keywors `M,a,omega_m,omega_b,sigma8` and `h0` (this is true for all function calls of this package), for instance:
-M_vir = hydro_mc.do_get_mass_from_mc_relation('vir','200c', M=1e14, a=1.,omega_m=0.2, omega-b=0.04, sigma8=0.7, h0=0.7)
+M_vir = hydro_mc.mass_from_mc_relation('vir','200c', M=1e14, a=1.,omega_m=0.2, omega-b=0.04, sigma8=0.7, h0=0.7)
 ```
 ### Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ via a mass-mass relation
 
@@ -115,9 +115,9 @@ To convert masses from two overdensities, according to Table 7 in Ragagnin et al
 From script:
 ```python
 import hydro_mc
-M_500 = hydro_mc.do_get_mass_from_mm_relation('500c','vir', 1e14,1.,0.2,0.04,0.7,0.7)
+M_500 = hydro_mc.mass_from_mm_relation('500c','vir', 1e14,1.,0.2,0.04,0.7,0.7)
 #which is equal to:
-M_vir = hydro_mc.do_get_mass_from_mm_relation('vir','200c', M=1e14, a=1.,omega_m=0.2, omega-b=0.04, sigma8=0.7, h0=0.7)
+M_vir = hydro_mc.mass_from_mm_relation('vir','200c', M=1e14, a=1.,omega_m=0.2, omega-b=0.04, sigma8=0.7, h0=0.7)
 ```
 ### Obtain halo mass $M_delta2$ from a halo mass $M_delta1$ and its concentration $c_delta1$
 
@@ -129,20 +129,20 @@ From command line
 And, from library
 ```python
 import hydro_mc
-M_vir = hydro_mc.do_get_mass_from_m_and_c('vir','200c', 2.)
+M_vir = hydro_mc.mass_from_m_and_c('vir','200c', 2.)
 #in case we'd need to convert from or to `delta=vir`,  we'd need to specify, respectively `--omega-m value` or `omega_m=value`. 
 ```  
 
 ## Display and change fit parameters
 
-To be completely sure which fit parameters you are using, from command line add the flag `--show-fit-parameters`, while from script, add the flag `show_fit_parameters` to the functions `do_get_mass_from_mm_relation`, `do_get_mass_from_mc_relation` and `do_get_concentration_from_mc_relation`. For instance:
+To be completely sure which fit parameters you are using, from command line add the flag `--show-fit-parameters`, while from script, add the flag `show_fit_parameters` to the functions `mass_from_mm_relation`, `mass_from_mc_relation` and `concentration_from_mc_relation`. For instance:
 ```console
 python hydro_mc.py --delta1 500c --mass-from-mc-relation --delta2 vir  --M 1e14  --a 1. --omega-m 0.2 --omega-b 0.04 --sigma8 0.7 --h0 0.7 --debug  --show-fit-parameters  --use-lite-mc-fit
 ```
 or, from library
 ```python
 import hydro_mc
-M_500c = hydro_mc.do_get_mass_from_mc_relation('500c','vir', 1e14, 1., 0.2, 0.04, 0.7, 0.7, show_fit_parameters=True,use_lite_mc_fit=True)
+M_500c = hydro_mc.mass_from_mc_relation('500c','vir', 1e14, 1., 0.2, 0.04, 0.7, 0.7, show_fit_parameters=True,use_lite_mc_fit=True)
 ```
 
 You can use the dark matter profile the mass-concentration fit (where there is also there no dpeendency of cosmology in the mass logarithmic slope) with the flag `--use-lite-mc-fit --use-lite-mc-dm-fit` or, adding the parameters `use_lite_mc_fit=True, use_lite_mc_dm_fit=True` in function calls. 
@@ -163,7 +163,7 @@ import hydro_mc
 table = {}
 hydro_mc.set_fit_parameters(table,  A0=1.297, B0=-0.32 ,C0=-0.14)
 hydro_mc.set_pivots(table, M=8e14, a=0.73)
-M_500c = hydro_mc.do_get_mass_from_mc_relation('200c','500c', 1e14, 1., omega_b=None, omega_m=None, sigma8=None, h0=None, table=table show_fit_parameters=True)
+M_500c = hydro_mc.mass_from_mc_relation('200c','500c', 1e14, 1., omega_b=None, omega_m=None, sigma8=None, h0=None, table=table show_fit_parameters=True)
 ```
 
 
