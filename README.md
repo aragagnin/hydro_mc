@@ -133,7 +133,7 @@ M_vir = hydro_mc.mass_from_m_and_c('vir','200c', 2.)
 #in case we'd need to convert from or to `delta=vir`,  we'd need to specify, respectively `--omega-m value` or `omega_m=value`. 
 ```  
 
-## Display and change fit parameters
+### Display and change fit parameters
 
 To be completely sure which fit parameters you are using, from command line add the flag `--show-fit-parameters`, while from script, add the flag `show_fit_parameters` to the functions `mass_from_mm_relation`, `mass_from_mc_relation` and `concentration_from_mc_relation`. For instance:
 ```console
