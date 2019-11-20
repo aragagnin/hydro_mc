@@ -7,3 +7,11 @@
 
 import hydro_mc
 M_200c = hydro_mc.mass_from_mm_relation('500c','200c', M=1e14, a=1.,omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7)
+
+
+#
+# The following python script get's  M_200m given M_200c and the same properties as the previous example
+#
+
+import hydro_mc
+M_200m = hydro_mc.mass_from_mm_relation('200m','200c', M=1e14, a=1.,omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7)
