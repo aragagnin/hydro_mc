@@ -5,7 +5,7 @@
 # to do so, copy the hydro_mc.py file in the same folder of this file (or in your repository)
 #
 
-print('The following python script get's the 200c concetration of a   halo with M_200c=1e14Msun halo at a=0.1,')
+print('The following python script obtains the 200c concentration of a   halo with M_200c=1e14Msun halo at a=0.1,')
 print('with a cosmology (omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7).')
 print('')
 print('The conversion uses the dark matter NFW concentration in the mass-concentration relation presented in Table A2 of Ragagnin et al. (2020).')
