@@ -1,5 +1,5 @@
 #
-# The following python script get's the 200c concetration of a 1e15Msun halo at a=0.1,
+# The following python script get's the 200c concetration of a halo with M_200c=1e14Msun halo at a=0.1,
 # with a cosmology (omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7).
 #
 # The conversion uses the relation in Table 4 of Ragagnin et al. (2020).
