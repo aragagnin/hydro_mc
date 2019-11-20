@@ -1,4 +1,9 @@
 #
+# Example for Ragagnin et al. (2020)
+#
+# To make this script work you need to import hydro_mc,
+# to do so, copy the hydro_mc.py file in the same folder of this file (or in your repository)
+#
 # The following python script get's  M_200c of a halo with M_500c = 1e14Msun halo at a=0.9,
 # with a cosmology (omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7).
 #
