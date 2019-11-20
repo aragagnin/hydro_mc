@@ -6,5 +6,5 @@
 #
 
 import hydro_mc
-c_200 = hydro_mc.concentration_from_mc_relation('200c', M=1e14, a=0.1, omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7)
+c_200 = hydro_mc.concentration_from_mc_relation('200c', M=1e14, a=0.1, omega_m = 0.2, omega_b = 0.04, sigma8=0.7, h0=0.7, use_lite_mc_fit=True)
 print('c_200 = ',c_200)
