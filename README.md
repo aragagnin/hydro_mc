@@ -4,6 +4,9 @@ hydro_mc is a python library and executable to perform masses conversions and Co
 
 To start using this tool, just download the content of this repository. 
 
+Mass calibration python notebook: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aragagnin/hydro_mc/master?filepath=mass-calibration.ipynb)
+
+
 You can use it as an executable via `python hydro_mc.py --help` or as a library inside your python project by including `import hydro_mc`.
 
 Table of Content:
