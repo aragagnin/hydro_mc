@@ -1,2 +1,5 @@
 pint
 colossus
+numpy
+scipy
+matplotlib
