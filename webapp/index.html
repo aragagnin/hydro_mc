@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Halo masses and concentrations from Magnetiucm Box1a hydrodynamic simulations</title>
+    <meta name="description" content="Obtain sparsity, mass and concentration from mass, scale factor or redshift, and cosmological parameter Omega_m, Omega_b, sigma8 and h0, for overdensityes 200c, 500c,  2500c, vir, 2005c">
+    <meta name="author" content="Antonio Ragagnin">
+    <script type="text/javascript"	  src="brython.min.js">        </script>
+    <script type="text/javascript"          src="brython_stdlib.min.js">        </script>
+    <link rel="stylesheet" href="mystyle.css"> 
+    
+  </head>
+  <body onload="brython()">
+    <div id="loading" class="modal">
+      <div class="loader"></div> <span style="color:white; background-color:black">App is loading...</span>
+    </div>
+    
+    <script type="text/python" src="hydro_mc.py">		</script>
+    <script type="text/python" src="one_converter.py"></script>
+    <h1>Cosmology-dependent masses and concentrations from hydrodynamic Magneticum simulations</h1>
+    
+    <p>This webpage allows to use the cosmology-dependent mass-concentration (Mc) and mass-mass (MM) from Magneticum hydrodynamic simulations
+      conversion relations presented in
+      <a href="https://ui.adsabs.harvard.edu/abs/2020arXiv201105345R/">Ragagnin et al. (2020)</a>.
+      
+      Here below you can insert cosmological parameters  ( &Omega;<sub>m</sub>,  &Omega;<sub>b</sub>,  &sigma;<sub>8</sub>,  h<sub>0</sub> ), masses,
+      scale factors (or redshifts) and overdensities &Delta;=<code>vir</code>, <code>200c</code>, <code>500c</code>, <code>2500c</code>, <code>200m</code>. 
+      The conversion routines used in this web-app are also available as a python package
+      <a href="https://github.com/aragagnin/hydro_mc"><code>github.com/aragagnin/hydro_mc</code></a>.
+      In the <b>Output</b> field you can choose between the c<sub>&Delta;</sub> (default) or any M<sub>&Delta;2</sub>  values.
+
+    </p>
+    <p>
+           We used <a href="https://brython.info/index.html">Brython</a> to open the access of our python library to this web-app.
+      For question or additional information pabout this page please contact Antonio Ragagnin (antonio.ragagnin at inaf.it).
+    </p>
+      
+    <div class="window">
+      <form id="mix_form">
+	
+	<table>
+	  <tr><td>&Omega;<sub>m</sub>:</td><td>  <input name="omega_m">      </td></tr>
+	  <tr><td>       &Omega;<sub>b</sub>:</td><td>  <input name="omega_b">      </td></tr>
+	  <tr><td>       &sigma;<sub>8</sub>:</td><td>  <input name="sigma8">      </td></tr>
+	  <tr><td>       h<sub>0</sub>:</td><td>  <input name="h0">      </td></tr>
+	  <tr><td>       a:</td><td> <input name="a">      </td></tr>
+	  <tr><td>       M<sub>&Delta;</sub>:</td><td>  <input name="M" class="long">       [M<sub>&#x2299;</sub>]</td></tr>
+	  <tr><td>       &Delta;:</td><td> 
+	      <select name="delta_ignore">
+		<option value="vir">vir</option>
+		<option value="200c">200c</option>
+		<option value="500c">500c</option>
+		<option value="2500c">2500c</option>
+		<option value="200m">200m</option>
+	      </select>
+	  </td></tr>
+	  <tr><td>       Output:</td><td> 
+	      <select name="output_ignore">
+		<option value="c">c<sub>&Delta;</sub></option>
+		<option value="Mvir">M<sub>vir</sub></option>
+		<option value="M200c">M<sub>200c</sub></option>
+		<option value="M500c">M<sub>500c</sub></option>
+		<option value="M2500c">M<sub>2500c</sub></option>
+		<option value="M200m">M<sub>200m</sub></option>
+	      </select>
+	  </td></tr>
+	  <tr class="space"></tr>
+	  <tr><td colspan=2 style="text-align:center">	      <button  id="mix_btn" type="button">Calculate &darr;</button></td></tr>
+	  <tr class="space"></tr>
+	  <tr><td>  <span id="output_label"></td><td> <span id="mix_result"></span> <span id="output_units"></td></tr>
+	</table>
+      </form>
+    </div>
+    
+
+</body>
+</html>

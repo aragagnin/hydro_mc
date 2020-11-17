@@ -1,0 +1,55 @@
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    position:absolute;
+    bottom:2em;
+    left:0;
+    width: 2em;
+    height: 2em;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.modal {
+
+    position: fixed; /* Stay in place */
+
+    left:0;
+    bottom:0;
+
+
+}
+
+
+input:readonly{
+    background-color:#222;
+}
+
+input, select{
+    width: 10ch;
+    margin-right:1em;
+}
+
+input.long{
+    width:16ch;
+}
+
+tr td{
+    width:30ch;
+}
+tr td:first-child{
+    text-align:right;
+    width:20ch;
+}
+table{
+    border:1px solid gray;
+    border-radius:3px;
+    padding:1em;
+}
+
+.space{height:1em}
