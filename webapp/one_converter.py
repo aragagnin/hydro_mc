@@ -1,8 +1,8 @@
 import hydro_mc
 from browser import document
 from browser import alert
-from browser.widgets.dialog import InfoDialog
-import traceback
+#from browser.widgets.dialog import InfoDialog
+#import traceback
 from browser.local_storage import storage
 
 def compute_f_from_kw(fields, sanity, function):
@@ -82,11 +82,12 @@ def compute_mc_exc(form_id, sanity, function, format, additional_fields = None, 
     try:
         res_e = compute_f(form_id, sanity, function, format, additional_fields = additional_fields, set_res_e = set_res_e)
     except Exception as e:
-        s = str(traceback.format_exc())
+        s = str(e) #traceback.format_exc())
         print(s)
         
     if s is not None:
-        alert( ' '.join(s.split('\n')[-2:]))
+        #alert( ' '.join(s.split('\n')[-2:]))
+	alert(s)
     else:
         store()
     return res_e
