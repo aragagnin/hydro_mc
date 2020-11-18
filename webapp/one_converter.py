@@ -1,8 +1,10 @@
 import hydro_mc
-from browser import document
-from browser import alert
+from browser import document, window
+#from browser import alert
 #from browser.widgets.dialog import InfoDialog
 #import traceback
+#storage = window.localStorage
+alert = window.alert
 from browser.local_storage import storage
 
 def compute_f_from_kw(fields, sanity, function):
@@ -138,6 +140,11 @@ def mix_click(ev):
     # ideally we 'd like to have two forms: one for MM and one for Mc,
     # in this simplified app we fake an Mc or MM form based on user input
     #
+    try:
+        z = float(form_get('mix_form', 'z_ignore'))
+    except:
+        return alert('Unable to convert redshift to float')
+    a = str(1./(1.+z))
     if destination[0]=='c':
         f = hydro_mc.concentration_from_mc_relation
         units = ''
@@ -145,11 +152,11 @@ def mix_click(ev):
 
         sanity = mc_sanity
         format = '%.4f'
-        additional_fields = {'delta': form_get('mix_form','delta_ignore')}
+        additional_fields = {'delta': form_get('mix_form','delta_ignore'), 'a':a}
     elif destination[0]=='M':
         f = hydro_mc.mass_from_mm_relation
         sanity = mm_sanity
-        additional_fields = {'delta_from': form_get('mix_form','delta_ignore'), 'delta_to': destination[1:]}
+        additional_fields = {'delta_from': form_get('mix_form','delta_ignore'), 'delta_to': destination[1:], 'a':a}
         units = '[M<sub>&#x2299;</sub>]'
         result_name =  'M'+'<sub>'+destination[1:]+'</sub>'+':'
         format = '%.4e'
@@ -169,7 +176,7 @@ document["mix_btn"].bind("click", mix_click)
 
 #_default_values = {"h0_11":"0.7","delta_from_14":"500c","M_5":"2e14","cdelta_16":"2.90247e+14","delta_to_15":"200c","omega_b_1":"0.04","sigma8_10":"0.8","a_4":"1.0","omega_b_9":"0.04","cdelta_7":"5.18523","omega_m_0":"0.3","omega_m_8":"0.3","M_13":"2e14","delta_6":"vir","h0_3":"0.7","a_12":"1.0","sigma8_2":"0.8"}
 
-_default_values = {"M_5":"2e14","delta_ignore_6":"200c","cdelta_result_8":"3.8661","omega_b_1":"0.04","a_4":"1.0","h0_3":"0.7","output_ignore_7":"c","sigma8_2":"0.8","omega_m_0":"0.3"}
+_default_values = {"M_5":"2e14","delta_ignore_6":"200c","cdelta_result_8":"3.8661","omega_b_1":"0.04","z_ignore_4":"0.0","h0_3":"0.7","output_ignore_7":"c","sigma8_2":"0.8","omega_m_0":"0.3"}
 
 restore(_default_values)
 
