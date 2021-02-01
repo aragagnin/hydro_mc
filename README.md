@@ -1,11 +1,10 @@
 # hydro_mc
 
-hydro_mc is a python library and executable to perform masses conversions and Concentration fits of haloes in [Magenticum](http://www.magneticum.org) hydrodynamic simulations. This package is written by **Antonio Ragagnin** and its conversions are based on fits presented in the paper [Ragagnin et al. (2020)](https://ui.adsabs.harvard.edu/abs/2020MNRAS.tmp.3313R/abstract).
+hydro_mc is a python library and executable to perform masses conversions and Concentration fits of haloes in [Magenticum](http://www.magneticum.org) hydrodynamic simulations. This package is written by **Antonio Ragagnin** (https://aragagnin.github.io) and its conversions are based on fits presented in the paper [Ragagnin et al. (2020)](https://ui.adsabs.harvard.edu/abs/2020MNRAS.tmp.3313R/abstract).
 
 To start using this tool, just download the content of this repository. 
 
-Mass calibration python notebook: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aragagnin/hydro_mc/master?filepath=mass-calibration.ipynb)
-
+**News: use the web-app version of the MC relation: https://c2papcosmosim.uc.lrz.de/static/hydro_mc/webapp/index.html**
 
 You can use it as an executable via `python hydro_mc.py --help` or as a library inside your python project by including `import hydro_mc`.
 
