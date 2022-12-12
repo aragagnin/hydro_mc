@@ -214,15 +214,15 @@ def convert_concentration(delta_from, delta_to, concentration, f_profile=None,  
 
 def mass_from_m_and_c(delta_from, delta_to, concentration,  **kw):
     c = concentration
-    overdensity_from = critical_overdensity(delta_from, **kw)
-    overdensity_to = critical_overdensity(delta_to, **kw)
+    overdensity_from = critical_overdensity(delta_from, a=a, omega_m = omega_m, **kw)
+    overdensity_to = critical_overdensity(delta_to,  a=a, omega_m = omega_m, **kw)
     new_c =  c2_bc(overdensity_to, overdensity_from, c)
     return    kw['M'] * (overdensity_to/overdensity_from)*(new_c/c)**3.
 
 
 def mass_from_mc_relation(delta_from, delta_to, M, a, omega_m, omega_b, sigma8, h0,   **kw):
-    overdensity_from = critical_overdensity(delta_from, **kw)
-    overdensity_to = critical_overdensity(delta_to, **kw)
+    overdensity_from = critical_overdensity(delta_from,  a=a, omega_m = omega_m,**kw)
+    overdensity_to = critical_overdensity(delta_to,  a=a, omega_m = omega_m, **kw)
     c =  concentration_from_mc_relation(delta_from, M, a, omega_m, omega_b, sigma8, h0, **kw)
     new_c =  c2_bc(overdensity_to, overdensity_from, c)
     M = M* (overdensity_to/overdensity_from)*(new_c/c)**3.
